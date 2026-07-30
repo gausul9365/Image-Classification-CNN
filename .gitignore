@@ -1,0 +1,8 @@
+
+data/
+*.bin
+*.tar.gz
+
+
+__pycache__/
+*.pyc
