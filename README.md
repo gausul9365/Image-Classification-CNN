@@ -406,7 +406,13 @@ Possible improvements include:
 |---------|------------|
 | 🐱 Your Cat | **Cat ✅** |
 
-> *(Replace this section with screenshots from your own predictions.)*
+
+## 📷 Sample Prediction
+
+| Image | Prediction |
+| :---: | :---: |
+| ![My Cat](sample.jpg) | Cat  |
+
 
 ---
 
