@@ -1,4 +1,4 @@
-# 🧠 Image Classification using Convolutional Neural Networks (PyTorch)
+# Image Classification using Convolutional Neural Networks (PyTorch)
 
 <p align="center">
 
