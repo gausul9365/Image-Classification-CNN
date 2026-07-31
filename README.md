@@ -1,76 +1,143 @@
-# Image Classification using Convolutional Neural Networks (PyTorch)
+# 🧠 Image Classification using Convolutional Neural Networks (PyTorch)
 
-> A complete end-to-end implementation of a Convolutional Neural Network (CNN) for multi-class image classification on the CIFAR-10 dataset using PyTorch.
+<p align="center">
 
-This project was built from scratch to understand the complete deep learning pipeline—from raw image tensors to learned feature representations, gradient-based optimization, and inference on unseen images.
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)
+![Torchvision](https://img.shields.io/badge/Torchvision-CIFAR10-orange)
+![Status](https://img.shields.io/badge/Status-Completed-success)
+![License](https://img.shields.io/badge/License-MIT-green)
 
----
-
-# Overview
-
-Unlike projects that rely on pretrained models, this implementation builds a CNN manually to understand every component involved in supervised image classification.
-
-The project covers:
-
-- Image preprocessing
-- Dataset & DataLoader pipeline
-- Convolutional Neural Network architecture
-- Forward propagation
-- Cross Entropy Loss
-- Backpropagation
-- Adam Optimization
-- Validation
-- Model serialization
-- Inference on custom images
-
-Every layer of the network was intentionally implemented to understand how CNNs learn hierarchical visual representations.
+</p>
 
 ---
 
-# Project Architecture
+## 📌 Overview
+
+This repository presents an end-to-end implementation of a **Convolutional Neural Network (CNN)** for multi-class image classification using **PyTorch**.
+
+Unlike projects that simply import pretrained architectures, this implementation builds the complete CNN pipeline from first principles to develop a deep understanding of how convolutional neural networks learn hierarchical visual representations through gradient-based optimization.
+
+The project covers every stage of the deep learning workflow, including data preprocessing, convolution operations, feature extraction, optimization, validation, model serialization, and inference.
+
+---
+
+# Objectives
+
+- Build a CNN completely from scratch
+- Understand convolution mathematically and computationally
+- Learn feature extraction through stacked convolutional layers
+- Implement the complete training pipeline
+- Understand gradient flow and backpropagation
+- Perform inference on unseen images
+- Build a strong foundation before moving to Transfer Learning (ResNet, EfficientNet)
+
+---
+
+# 🏗 CNN Architecture
 
 ```
-Input Image (32×32×3)
-          │
-          ▼
-┌──────────────────────┐
-│ Conv2D (3 → 16)      │
-└──────────────────────┘
-          │
-          ▼
-ReLU
-          │
-          ▼
-MaxPool (2×2)
-          │
-          ▼
-┌──────────────────────┐
-│ Conv2D (16 → 32)     │
-└──────────────────────┘
-          │
-          ▼
-ReLU
-          │
-          ▼
-MaxPool (2×2)
-          │
-          ▼
-Flatten
-          │
-          ▼
-Linear (1152 → 128)
-          │
-          ▼
-ReLU
-          │
-          ▼
-Linear (128 → 10)
-          │
-          ▼
-Raw Logits
-          │
-          ▼
-CrossEntropyLoss
+                     Input Image
+                  (3 × 32 × 32)
+                         │
+                         ▼
+        ┌─────────────────────────────────┐
+        │ Conv2D                          │
+        │ 3 Channels → 16 Filters         │
+        │ Kernel = 3 × 3                  │
+        └─────────────────────────────────┘
+                         │
+                         ▼
+                     ReLU Activation
+                         │
+                         ▼
+                 Max Pooling (2 × 2)
+                         │
+                         ▼
+        ┌─────────────────────────────────┐
+        │ Conv2D                          │
+        │16 Channels → 32 Filters         │
+        │Kernel = 3 × 3                   │
+        └─────────────────────────────────┘
+                         │
+                         ▼
+                     ReLU Activation
+                         │
+                         ▼
+                 Max Pooling (2 × 2)
+                         │
+                         ▼
+                     Flatten
+                         │
+                         ▼
+               Fully Connected (1152→128)
+                         │
+                         ▼
+                     ReLU
+                         │
+                         ▼
+                Fully Connected (128→10)
+                         │
+                         ▼
+                     Raw Logits
+                         │
+                         ▼
+               CrossEntropyLoss
+```
+
+---
+
+# 📐 Tensor Shape Evolution
+
+| Layer | Output Shape |
+|---------|-------------|
+| Input | 3 × 32 × 32 |
+| Conv1 | 16 × 30 × 30 |
+| ReLU | 16 × 30 × 30 |
+| MaxPool | 16 × 15 × 15 |
+| Conv2 | 32 × 13 × 13 |
+| ReLU | 32 × 13 × 13 |
+| MaxPool | 32 × 6 × 6 |
+| Flatten | 1152 |
+| FC1 | 128 |
+| FC2 | 10 |
+
+---
+
+# Learning Pipeline
+
+```
+               Image
+                 │
+                 ▼
+            DataLoader
+                 │
+                 ▼
+          Convolution Layers
+                 │
+                 ▼
+          Feature Extraction
+                 │
+                 ▼
+          Fully Connected Layer
+                 │
+                 ▼
+             Raw Logits
+                 │
+                 ▼
+       Cross Entropy Loss
+                 │
+                 ▼
+          Backpropagation
+                 │
+                 ▼
+             Gradients
+                 │
+                 ▼
+          Adam Optimizer
+                 │
+                 ▼
+        Updated CNN Parameters
 ```
 
 ---
@@ -85,8 +152,8 @@ Image-Classification-CNN/
 │
 ├── model.py
 ├── train.py
-├── predict.py
 ├── test.py
+├── predict.py
 │
 ├── cnn_model.pth
 │
@@ -96,17 +163,21 @@ Image-Classification-CNN/
 
 ---
 
-# Dataset
+# 📊 Dataset
 
-The model is trained on the **CIFAR-10** dataset.
+The model is trained on the **CIFAR-10** benchmark dataset.
 
-### Dataset Statistics
+## Dataset Statistics
 
-- 60,000 RGB Images
-- Resolution: 32 × 32
-- 10 Classes
+| Property | Value |
+|-----------|--------|
+| Images | 60,000 |
+| Training Images | 50,000 |
+| Test Images | 10,000 |
+| Classes | 10 |
+| Resolution | 32 × 32 RGB |
 
-Classes:
+Classes
 
 - ✈️ Airplane
 - 🚗 Automobile
@@ -119,147 +190,62 @@ Classes:
 - 🚢 Ship
 - 🚚 Truck
 
-Training Images:
-
-```
-50,000
-```
-
-Testing Images:
-
-```
-10,000
-```
-
----
-
-# Model Design
-
-The network follows a simple hierarchical feature extraction pipeline.
-
-### Feature Extraction
-
-```
-Conv2D
-
-↓
-
-ReLU
-
-↓
-
-MaxPool
-
-↓
-
-Conv2D
-
-↓
-
-ReLU
-
-↓
-
-MaxPool
-```
-
-The convolution layers progressively learn
-
-- edges
-- corners
-- textures
-- local visual patterns
-
-before compressing them into a learned feature representation.
-
----
-
-### Classification Head
-
-```
-Flatten
-
-↓
-
-Fully Connected
-
-↓
-
-ReLU
-
-↓
-
-Fully Connected
-
-↓
-
-10 Logits
-```
-
-The classifier maps extracted visual features into one of the ten CIFAR-10 categories.
-
 ---
 
 # ⚙ Training Configuration
 
 | Parameter | Value |
-|-----------|------:|
+|------------|-------|
+| Framework | PyTorch |
 | Optimizer | Adam |
 | Learning Rate | 0.001 |
 | Loss Function | CrossEntropyLoss |
-| Batch Size | 32 |
 | Epochs | 10 |
+| Batch Size | 32 |
 
 ---
 
-# Training Result
+# 📈 Training Progress
 
-Training Loss
+| Epoch | Loss |
+|-------:|------:|
+| 1 | 1.3622 |
+| 2 | 1.0233 |
+| 3 | 0.8891 |
+| 4 | 0.7969 |
+| 5 | 0.7250 |
+| 6 | 0.6586 |
+| 7 | 0.5946 |
+| 8 | 0.5384 |
+| 9 | 0.4916 |
+| 10 | 0.4407 |
 
-```
-Epoch 1  → 1.3622
-
-Epoch 2  → 1.0233
-
-Epoch 3  → 0.8891
-
-Epoch 4  → 0.7969
-
-Epoch 5  → 0.7250
-
-Epoch 6  → 0.6586
-
-Epoch 7  → 0.5946
-
-Epoch 8  → 0.5384
-
-Epoch 9  → 0.4916
-
-Epoch 10 → 0.4407
-```
-
-Validation Accuracy
-
-```
-67.27%
-```
-
-The steadily decreasing training loss indicates stable optimization and successful gradient-based learning.
+The training loss decreases consistently across epochs, indicating stable optimization and successful convergence.
 
 ---
 
-# Learning Pipeline
+# Performance
+
+| Metric | Score |
+|----------|-------|
+| Validation Accuracy | **67.27 %** |
+
+Although intentionally lightweight, the network demonstrates successful feature learning and generalization on unseen images.
+
+---
+
+# 🔬 Model Training Workflow
 
 ```
-Image
+Dataset
 
 ↓
 
-DataLoader
+Mini Batch
 
 ↓
 
-CNN
+CNN Forward Pass
 
 ↓
 
@@ -267,7 +253,7 @@ Logits
 
 ↓
 
-CrossEntropy Loss
+CrossEntropyLoss
 
 ↓
 
@@ -290,30 +276,59 @@ Updated Parameters
 Repeat
 ```
 
-This iterative optimization enables the network to progressively minimize classification error across training epochs.
-
 ---
 
-# Model Saving
+# 💾 Saving the Model
 
-The trained parameters are stored using PyTorch's `state_dict()` serialization.
+The learned parameters are stored using PyTorch's serialization mechanism.
 
 ```python
 torch.save(model.state_dict(), "cnn_model.pth")
 ```
 
-The model can later be restored for inference without retraining.
+The trained model can later be restored without retraining.
 
 ---
 
-# Inference
+# Inference Pipeline
 
-Custom RGB images can be classified by
+```
+Custom Image
 
-1. Loading the trained weights
-2. Applying the same preprocessing pipeline
-3. Performing a forward pass
-4. Selecting the class with the highest logit
+↓
+
+Resize
+
+↓
+
+Normalization
+
+↓
+
+Tensor
+
+↓
+
+Batch Dimension
+
+↓
+
+CNN
+
+↓
+
+Logits
+
+↓
+
+Argmax
+
+↓
+
+Predicted Class
+```
+
+Example
 
 ```python
 _, predicted = torch.max(outputs, 1)
@@ -321,55 +336,98 @@ _, predicted = torch.max(outputs, 1)
 
 ---
 
-# Technologies Used
+# 🛠 Technology Stack
 
 - Python
 - PyTorch
 - Torchvision
-- PIL
+- Pillow
 - NumPy
 
 ---
 
-# Key Concepts Demonstrated
+# 🧩 Deep Learning Concepts Demonstrated
 
-- Convolution Operation
-- Feature Maps
-- Weight Sharing
-- ReLU Activation
-- Max Pooling
-- Flatten Layer
-- Fully Connected Networks
-- Forward Propagation
-- Cross Entropy Loss
-- Backpropagation
-- Gradient Descent
-- Adam Optimization
-- Model Evaluation
-- Inference Pipeline
+✅ Convolution Operation
+
+✅ Learnable Filters
+
+✅ Feature Maps
+
+✅ ReLU Activation
+
+✅ Max Pooling
+
+✅ Flatten Layer
+
+✅ Fully Connected Networks
+
+✅ Forward Propagation
+
+✅ Cross Entropy Loss
+
+✅ Backpropagation
+
+✅ Gradient Computation
+
+✅ Adam Optimization
+
+✅ Model Evaluation
+
+✅ Model Serialization
+
+✅ Image Inference
 
 ---
 
 # Future Improvements
 
-Potential architectural improvements include
+The current implementation intentionally keeps the architecture lightweight to emphasize understanding rather than benchmark performance.
+
+Possible improvements include:
 
 - Batch Normalization
 - Dropout Regularization
-- Learning Rate Scheduling
 - Data Augmentation
+- Learning Rate Scheduler
 - Early Stopping
-- Transfer Learning (ResNet, EfficientNet)
 - Mixed Precision Training
 - GPU Training
+- TensorBoard Logging
 - Hyperparameter Optimization
+- Transfer Learning (ResNet, EfficientNet)
+- Vision Transformers (ViT)
 
 ---
 
-# Results
+# 📷 Sample Prediction
 
-This project demonstrates the complete implementation of a CNN from first principles without relying on pretrained feature extractors.
+| Image | Prediction |
+|---------|------------|
+| 🐱 Your Cat | **Cat ✅** |
 
-Beyond achieving competitive performance on CIFAR-10 for a lightweight architecture, the primary objective was to build a strong conceptual understanding of how convolutional neural networks transform raw pixel data into learned semantic representations through gradient-based optimization.
+> *(Replace this section with screenshots from your own predictions.)*
 
-The implementation serves as a foundation for more advanced computer vision architectures such as ResNet, DenseNet, EfficientNet, and Vision Transformers.
+---
+
+# Key Takeaways
+
+This project demonstrates the complete lifecycle of supervised image classification using Convolutional Neural Networks.
+
+Rather than treating deep learning as a collection of high-level APIs, the implementation focuses on understanding how convolutional layers progressively transform raw pixel values into hierarchical feature representations and how these representations are optimized through gradient-based learning.
+
+Building the network from scratch establishes a strong conceptual foundation for more advanced computer vision architectures such as ResNet, DenseNet, EfficientNet, Vision Transformers, and multimodal foundation models.
+
+---
+
+# 👨‍💻 Author
+
+**Gausul Wara**
+
+Machine Learning Engineer | Deep Learning | Computer Vision | LLM Engineering
+
+Building production-ready AI systems while developing a deep understanding of modern machine learning architectures.
+
+---
+
+## ⭐ If you found this repository useful, consider giving it a star!
