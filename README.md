@@ -163,7 +163,7 @@ Image-Classification-CNN/
 
 ---
 
-# 📊 Dataset
+# Dataset
 
 The model is trained on the **CIFAR-10** benchmark dataset.
 
@@ -192,7 +192,7 @@ Classes
 
 ---
 
-# ⚙ Training Configuration
+# Training Configuration
 
 | Parameter | Value |
 |------------|-------|
@@ -205,7 +205,7 @@ Classes
 
 ---
 
-# 📈 Training Progress
+# Training Progress
 
 | Epoch | Loss |
 |-------:|------:|
@@ -278,7 +278,7 @@ Repeat
 
 ---
 
-# 💾 Saving the Model
+# Saving the Model
 
 The learned parameters are stored using PyTorch's serialization mechanism.
 
@@ -400,14 +400,10 @@ Possible improvements include:
 
 ---
 
+
+
+
 # 📷 Sample Prediction
-
-| Image | Prediction |
-|---------|------------|
-| 🐱 Your Cat | **Cat ✅** |
-
-
-## 📷 Sample Prediction
 
 | Image | Prediction |
 | :---: | :---: |
